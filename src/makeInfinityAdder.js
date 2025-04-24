@@ -4,22 +4,20 @@
  * @return {function}
  */
 function makeInfinityAdder() {
-  const adder = (a) => {
-    let amount = a;
+  let amount = 0;
 
+  const adder = (a) => {
     if (a === undefined) {
-      return 0;
+      const result = amount;
+
+      amount = 0;
+
+      return result;
     }
 
-    return function nextAdder(b) {
-      if (b === undefined) {
-        return amount;
-      }
+    amount += a;
 
-      amount += b;
-
-      return nextAdder;
-    };
+    return adder;
   };
 
   return adder;
